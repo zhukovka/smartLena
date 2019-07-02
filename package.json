@@ -1,8 +1,9 @@
 {
-  "name": "smartLena",
+  "name": "smart lena",
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^6.1.4"
   }
 }
