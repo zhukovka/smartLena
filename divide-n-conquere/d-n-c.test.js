@@ -1,14 +1,25 @@
 const assert = require('assert');
 const findMaximumSubarray = require('./max-subarray');
+const mergeSort = require('./merge-sort');
 
 describe('Divide and conquer', function () {
 
+    let numbers;
+    beforeEach(function () {
+        numbers = [3, 5, -9, 8, 11];
+    });
+
     describe('findMaximumSubarray', function () {
         it('should find Maximum Subarray', function () {
-            let numbers = [3, 5, -9, 8, 11];
             const [low, high, maxSum] = findMaximumSubarray(numbers, 0, numbers.length - 1);
-            console.log(`result: low: ${low}, high: ${high}, maxSum: ${maxSum}`)
-            // assert.deepStrictEqual(numbers.slice(low, high+1), [5, -4, 8, 11])
+            assert.deepStrictEqual(numbers.slice(low, high + 1), [8, 11])
         });
     });
+
+    describe('merge sort', function () {
+        it('should sort an array', function () {
+            const sorted = mergeSort(numbers, 0, numbers.length);
+            assert.deepStrictEqual(sorted, [-9, 3, 5, 8, 11]);
+        });
+    })
 });
