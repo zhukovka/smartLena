@@ -32,21 +32,49 @@ class DoublyLinkedList {
     }
 
     setHead (node) {
-        // Write your code here.
-        this.head = node;
+        if (!this.head || !node) {
+            this.head = node;
+        } else {
+            this.insertBefore(this.head, node)
+        }
+        this.tail = this.tail || node;
     }
 
     setTail (node) {
-        // Write your code here.
-        this.head = node;
+        if (!this.tail || !node) {
+            this.tail = node;
+        } else {
+            this.insertAfter(this.tail, node);
+        }
+        this.head = this.head || node;
     }
 
+    /*
+    Realize that the insertBefore() and insertAfter() methods can be used to implement the setHead(), setTail(), and insertAtPosition() methods;
+    making the insertBefore() and insertAfter() methods as robust as possible will simplify your code for the other methods.
+    Make sure to take care of edge cases involving inserting nodes before the head of the linked list or inserting nodes after the tail of the linked list.
+     */
     insertBefore (node, nodeToInsert) {
-        // Write your code here.
+        if (node.prev) {
+            const prev = node.prev;
+            prev.next = nodeToInsert;
+            nodeToInsert.prev = prev;
+        } else {
+            this.head = node;
+        }
+
+        node.prev = nodeToInsert;
+        nodeToInsert.next = node;
     }
 
     insertAfter (node, nodeToInsert) {
-        // Write your code here.
+        if (node.next) {
+            this.insertBefore(node.next, nodeToInsert);
+        } else {
+            node.next = nodeToInsert;
+            nodeToInsert.prev = node;
+            this.tail = nodeToInsert;
+        }
     }
 
     insertAtPosition (position, nodeToInsert) {
@@ -58,13 +86,20 @@ class DoublyLinkedList {
     }
 
     remove (node) {
-        // Write your code here.
-
+        const {prev, next} = node;
+        prev ? prev.next = next : this.setHead(next);
+        next ? next.prev = prev : this.setTail(prev);
     }
 
     containsNodeWithValue (value) {
-        // Write your code here.
-
+        let node = this.head;
+        while (node) {
+            if(node.value === value){
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
     }
 }
 
