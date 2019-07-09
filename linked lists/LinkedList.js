@@ -55,14 +55,13 @@ class DoublyLinkedList {
     Make sure to take care of edge cases involving inserting nodes before the head of the linked list or inserting nodes after the tail of the linked list.
      */
     insertBefore (node, nodeToInsert) {
-        if (node.prev) {
-            const prev = node.prev;
+        const prev = node.prev;
+        if (prev) {
             prev.next = nodeToInsert;
             nodeToInsert.prev = prev;
         } else {
             this.head = node;
         }
-
         node.prev = nodeToInsert;
         nodeToInsert.next = node;
     }
@@ -78,23 +77,41 @@ class DoublyLinkedList {
     }
 
     insertAtPosition (position, nodeToInsert) {
-
+        let node = this.head;
+        if (!node) {
+            this.setHead(nodeToInsert);
+        }
+        let i = 1;
+        while (node) {
+            if (i === position) {
+                this.insertBefore(node, nodeToInsert);
+                return;
+            }
+            node = node.next;
+            i++;
+        }
     }
 
     removeNodesWithValue (value) {
-
+        let node = this.head;
+        while (node) {
+            if (node.value === value) {
+                this.remove(node);
+            }
+            node = node.next;
+        }
     }
 
     remove (node) {
         const {prev, next} = node;
-        prev ? prev.next = next : this.setHead(next);
-        next ? next.prev = prev : this.setTail(prev);
+        prev ? prev.next = next : this.head = next;
+        next ? next.prev = prev : this.tail = prev;
     }
 
     containsNodeWithValue (value) {
         let node = this.head;
         while (node) {
-            if(node.value === value){
+            if (node.value === value) {
                 return true;
             }
             node = node.next;
