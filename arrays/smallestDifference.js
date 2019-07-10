@@ -15,27 +15,23 @@ function smallestDifference (arrayOne, arrayTwo) {
     arrayTwo.sort(comparator);
     let pair = [arrayOne[0], arrayTwo[0]];
     let minDiff = Math.abs(arrayOne[0] - arrayTwo[0]);
-    for (let i = 0; i < arrayOne.length; i++) {
-        if (!arrayTwo.length) {
-            break;
-        }
-        let j = 0;
-        while (j < arrayTwo.length) {
-            let nextDiff = Math.abs(arrayOne[i] - arrayTwo[j]);
-
-            if (nextDiff < minDiff) {
-                pair[0] = arrayOne[i];
-                pair[1] = arrayTwo[j];
-                minDiff = nextDiff;
-            } else {
-                if (arrayOne[i] > arrayTwo[j]) {
-                    arrayTwo.shift();
-                    continue;
-                } else {
-                    break;
-                }
-            }
+    let i = 0;
+    let j = 0;
+    while (i < arrayOne.length && j < arrayTwo.length) {
+        let a = arrayOne[i];
+        let b = arrayTwo[j];
+        let nextDiff = Math.abs(a - b);
+        if (a === b) {
+            return [a, b];
+        } else if (a > b) {
             j++;
+        } else {
+            i++;
+        }
+        if (nextDiff < minDiff) {
+            minDiff = nextDiff;
+            pair[0] = a;
+            pair[1] = b;
         }
     }
     return pair;
