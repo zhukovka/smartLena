@@ -15,23 +15,50 @@ class BST {
     }
 
     insert (value) {
-        if (value < this.value) {
-            if (this.left === null) {
-                this.left = new BST(value);
-                this.left.parent = this;
+        if (value >= this.value) {
+            if (this.right) {
+                this.right.insert(value);
             } else {
-                this.left.insert(value);
+                this.right = new BST(value);
             }
         } else {
-            if (this.right === null) {
-                this.right = new BST(value);
-                this.right.parent = this;
+            if (this.left) {
+                this.left.insert(value);
             } else {
-                this.right.insert(value);
+                this.left = new BST(value);
             }
         }
         return this;
     }
+
+    remove (value) {
+        if (value >= this.value) {
+            if (this.right) {
+                this.right.remove(value);
+            } else {
+                this.right = null;
+            }
+        } else {
+            if (this.left) {
+                this.left.remove(value);
+            } else {
+                this.left = null;
+            }
+        }
+        return this;
+    }
+
+    contains (value) {
+        if (this.value === value) {
+            return true;
+        }
+        if (value >= this.value) {
+            return !!this.right && this.right.contains(value);
+        } else {
+            return !!this.left && this.left.contains(value);
+        }
+    }
+
 
     inorder (arr) {
         this.left && this.left.inorder(arr);
