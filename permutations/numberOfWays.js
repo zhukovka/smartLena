@@ -14,6 +14,7 @@ Sample output: 2 (1x1 + 1x5 and 6x1)
 
 function numberOfWaysToMakeChange (n, denoms) {
     // Write your code here.
+
 }
 
 // Do not edit the line below.
