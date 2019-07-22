@@ -38,23 +38,22 @@ Sample output: "xyzzyx"
 function longestPalindromicSubstring(string) {
     let longest = '';
     for (let i = 0; i < string.length; i++) {
-        //check center
-        let palindrome = '';
-        let palindrome1 = '';
+        let oddPalindrome = '';
+        let evenPalindrome = '';
         let center = string[i];
         let left = i - 1;
         let right = i + 1;
-        
-        if (string[right] && center === string[right]) {
-            palindrome1 = checkCenter(string, `${center}${string[right]}`, left, right + 1);
+    
+        if (center === string[right]) {
+            evenPalindrome = checkCenter(string, `${center}${string[right]}`, left, right + 1);
         }
-        palindrome = checkCenter(string, center, left, right);
-        
-        if (palindrome.length > longest.length) {
-            longest = palindrome;
+        oddPalindrome = checkCenter(string, center, left, right);
+    
+        if (oddPalindrome.length > longest.length) {
+            longest = oddPalindrome;
         }
-        if (palindrome1.length > longest.length) {
-            longest = palindrome1;
+        if (evenPalindrome.length > longest.length) {
+            longest = evenPalindrome;
         }
     }
     return longest;
