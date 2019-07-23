@@ -1,3 +1,4 @@
+const assert = require('assert');
 const chai = require("chai");
 const palindrome = require('./palindrome');
 const caesarCipherEncryptor = require('./caesar');
@@ -74,5 +75,27 @@ describe('Caesar Cipher Encryptor', function () {
     it('Test Case #7', function () {
         chai.expect(
             caesarCipherEncryptor("abc", 57)).to.deep.equal("fgh");
+    });
+});
+
+describe('one edit away', function () {
+    const oneEdit = require('./oneEdit');
+    it('should return true for pale and bale', function () {
+        const isOneEditAway = oneEdit('pale', 'bale');
+        assert.deepStrictEqual(isOneEditAway, true);
+    });
+
+    it('should return true for qwert1y and qwerty', function () {
+        const isOneEditAway = oneEdit('qwert1y', 'qwerty');
+        assert.deepStrictEqual(isOneEditAway, true);
+    });
+
+    it('should return false for pale and pled', function () {
+        const isOneEditAway = oneEdit('pale', 'pled');
+        assert.deepStrictEqual(isOneEditAway, false);
+    });
+    it('should return false for aaaaaa and aaaa', function () {
+        const isOneEditAway = oneEdit('aaaaaa', 'aaaa');
+        assert.deepStrictEqual(isOneEditAway, false);
     });
 });
