@@ -1,22 +1,22 @@
 const {Node, DoublyLinkedList} = require("./LinkedList");
 const chai = require("chai");
 
-function expectEmpty (linkedList) {
+function expectEmpty(linkedList) {
     chai.expect(linkedList.head).to.deep.equal(null);
     chai.expect(linkedList.tail).to.deep.equal(null);
 }
 
-function expectHeadTail (linkedList, head, tail) {
+function expectHeadTail(linkedList, head, tail) {
     chai.expect(linkedList.head).to.deep.equal(head);
     chai.expect(linkedList.tail).to.deep.equal(tail);
 }
 
-function expectSingleNode (linkedList, node) {
+function expectSingleNode(linkedList, node) {
     chai.expect(linkedList.head).to.deep.equal(node);
     chai.expect(linkedList.tail).to.deep.equal(node);
 }
 
-function getNodeValuesHeadToTail (linkedList) {
+function getNodeValuesHeadToTail(linkedList) {
     const values = [];
     let node = linkedList.head;
     while (node !== null) {
@@ -26,7 +26,7 @@ function getNodeValuesHeadToTail (linkedList) {
     return values;
 }
 
-function getNodeValuesTailToHead (linkedList) {
+function getNodeValuesTailToHead(linkedList) {
     const values = [];
     let node = linkedList.tail;
     while (node !== null) {
@@ -36,20 +36,42 @@ function getNodeValuesTailToHead (linkedList) {
     return values;
 }
 
-function removeNodes (linkedList, nodes) {
+function removeNodes(linkedList, nodes) {
     for (const node of nodes) {
         linkedList.remove(node);
     }
 }
 
 describe('Linked List Construction', function () {
+    describe('DoublyLinkedList implementation', function () {
+        let ll;
+        let node;
+        beforeEach(function () {
+            ll = new DoublyLinkedList();
+            node = new Node(1);
+            ll.setHead(node);
+        });
+        
+        it('should set head', () => {
+            chai.expect(ll.head).to.deep.equal(node);
+            chai.expect(ll.tail).to.deep.equal(node);
+        });
+        
+        it('should insert a node before head', () => {
+            let node1 = new Node(2);
+            ll.insertBefore(ll.head, node1);
+            chai.expect(ll.head).to.deep.equal(node1);
+            chai.expect(ll.tail).to.deep.equal(node);
+        });
+    });
+    
     it('Test Case #1', function () {
         const linkedList = new DoublyLinkedList();
         const node = new Node(1);
-
+    
         linkedList.setHead(node);
         expectSingleNode(linkedList, node);
-        linkedList.remove(node)
+        linkedList.remove(node);
         expectEmpty(linkedList);
         linkedList.setTail(node);
         expectSingleNode(linkedList, node);
@@ -58,13 +80,13 @@ describe('Linked List Construction', function () {
         linkedList.insertAtPosition(1, node);
         expectSingleNode(linkedList, node);
     });
-
+    
     it('Test Case #2', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
         const second = new Node(2);
         const nodes = [first, second];
-
+        
         linkedList.setHead(first);
         linkedList.setTail(second);
         expectHeadTail(linkedList, first, second);
@@ -86,14 +108,14 @@ describe('Linked List Construction', function () {
         linkedList.insertAtPosition(1, second);
         expectHeadTail(linkedList, second, first);
     });
-
+    
     it('Test Case #3', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
         const second = new Node(2);
         const third = new Node(3);
         const fourth = new Node(4);
-
+        
         linkedList.setHead(first);
         chai.expect(linkedList.containsNodeWithValue(1)).to.deep.equal(true);
         linkedList.insertAfter(first, second);
@@ -111,7 +133,7 @@ describe('Linked List Construction', function () {
         linkedList.remove(second);
         chai.expect(linkedList.containsNodeWithValue(2)).to.deep.equal(false);
     });
-
+    
     it('Test Case #4', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
@@ -121,7 +143,7 @@ describe('Linked List Construction', function () {
         const fifth = new Node(3);
         const sixth = new Node(6);
         const seventh = new Node(7);
-
+        
         linkedList.setHead(first);
         linkedList.insertAfter(first, second);
         linkedList.insertAfter(second, third);
@@ -149,7 +171,7 @@ describe('Linked List Construction', function () {
         chai.expect(getNodeValuesTailToHead(linkedList)).to.deep.equal([6]);
         expectHeadTail(linkedList, sixth, sixth);
     });
-
+    
     it('Test Case #5', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
@@ -159,7 +181,7 @@ describe('Linked List Construction', function () {
         const fifth = new Node(5);
         const sixth = new Node(6);
         const seventh = new Node(7);
-
+        
         linkedList.setHead(first);
         linkedList.insertAfter(first, second);
         linkedList.insertAfter(second, third);
@@ -193,7 +215,7 @@ describe('Linked List Construction', function () {
         chai.expect(getNodeValuesTailToHead(linkedList)).to.deep.equal([6, 4, 1, 7, 2, 5, 3]);
         expectHeadTail(linkedList, third, sixth);
     });
-
+    
     it('Test Case #6', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
@@ -203,7 +225,7 @@ describe('Linked List Construction', function () {
         const fifth = new Node(5);
         const sixth = new Node(6);
         const seventh = new Node(7);
-
+        
         linkedList.setHead(first);
         linkedList.insertBefore(first, second);
         linkedList.insertBefore(second, third);
@@ -233,7 +255,7 @@ describe('Linked List Construction', function () {
         chai.expect(getNodeValuesTailToHead(linkedList)).to.deep.equal([3, 1, 7, 5, 4, 2, 6]);
         expectHeadTail(linkedList, sixth, third);
     });
-
+    
     it('Test Case #7', function () {
         const linkedList = new DoublyLinkedList();
         const first = new Node(1);
@@ -243,7 +265,7 @@ describe('Linked List Construction', function () {
         const fifth = new Node(5);
         const sixth = new Node(6);
         const seventh = new Node(7);
-
+        
         linkedList.setHead(first);
         linkedList.insertAtPosition(1, second);
         linkedList.insertAtPosition(1, third);
@@ -277,4 +299,4 @@ describe('Linked List Construction', function () {
         chai.expect(getNodeValuesTailToHead(linkedList)).to.deep.equal([4, 3, 1, 7, 5, 2, 6]);
         expectHeadTail(linkedList, sixth, fourth);
     });
-})
+});
