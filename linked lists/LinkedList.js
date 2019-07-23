@@ -32,80 +32,91 @@ class DoublyLinkedList {
     }
 
     setHead (node) {
-        if (!this.head || !node) {
-            this.head = node;
-        } else {
-            this.insertBefore(this.head, node)
+        this.head = node;
+        if (this.head) {
+            this.head.prev = null;
         }
-        this.tail = this.tail || node;
+        if (!this.tail && this.head) {
+            this.setTail(this.head);
+        }
     }
 
     setTail (node) {
-        if (!this.tail || !node) {
-            this.tail = node;
-        } else {
-            this.insertAfter(this.tail, node);
+        this.tail = node;
+        if (this.tail) {
+            this.tail.next = null;
         }
-        this.head = this.head || node;
+        if (!this.head && this.tail) {
+            this.setHead(this.tail);
+        }
     }
 
-    /*
-    Realize that the insertBefore() and insertAfter() methods can be used to implement the setHead(), setTail(), and insertAtPosition() methods;
-    making the insertBefore() and insertAfter() methods as robust as possible will simplify your code for the other methods.
-    Make sure to take care of edge cases involving inserting nodes before the head of the linked list or inserting nodes after the tail of the linked list.
-     */
     insertBefore (node, nodeToInsert) {
-        const prev = node.prev;
-        if (prev) {
-            prev.next = nodeToInsert;
-            nodeToInsert.prev = prev;
+        nodeToInsert.next = node;
+        if (node.prev) {
+            nodeToInsert.prev = node.prev;
+            node.prev.next = nodeToInsert;
         } else {
-            this.head = node;
+            this.setHead(nodeToInsert);
         }
         node.prev = nodeToInsert;
-        nodeToInsert.next = node;
     }
 
     insertAfter (node, nodeToInsert) {
+        nodeToInsert.prev = node;
         if (node.next) {
-            this.insertBefore(node.next, nodeToInsert);
+            nodeToInsert.next = node.next;
+            node.next.prev = nodeToInsert;
         } else {
-            node.next = nodeToInsert;
-            nodeToInsert.prev = node;
-            this.tail = nodeToInsert;
+            this.setTail(nodeToInsert);
         }
+        node.next = nodeToInsert;
     }
 
     insertAtPosition (position, nodeToInsert) {
         let node = this.head;
-        if (!node) {
+        if (!node || position === 1) {
             this.setHead(nodeToInsert);
         }
         let i = 1;
         while (node) {
+            i++;
             if (i === position) {
-                this.insertBefore(node, nodeToInsert);
+                this.insertAfter(node, nodeToInsert);
                 return;
             }
             node = node.next;
-            i++;
         }
     }
 
     removeNodesWithValue (value) {
         let node = this.head;
         while (node) {
+            const next = node.next;
             if (node.value === value) {
                 this.remove(node);
             }
-            node = node.next;
+            node = next;
         }
     }
 
     remove (node) {
-        const {prev, next} = node;
-        prev ? prev.next = next : this.head = next;
-        next ? next.prev = prev : this.tail = prev;
+        const prev = node.prev;
+        const next = node.next;
+        if (prev) {
+            prev.next = node.next
+        } else {
+            this.setHead(next);
+        }
+
+        if (next) {
+            next.prev = node.prev;
+        } else {
+            this.setTail(prev);
+        }
+
+        node.prev = null;
+        node.next = null;
     }
 
     containsNodeWithValue (value) {
