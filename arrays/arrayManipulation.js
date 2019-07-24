@@ -7,17 +7,17 @@
 function arrayManipulation(n, queries) {
     const arr = new Array(n);
     arr.fill(0);
-    
-    let max = 0;
-    
     for (const q of queries) {
         let [a, b, k] = q;
-        while (a <= b) {
-            arr[a - 1] += k;
-            if (arr[a - 1] > max) {
-                max = arr[a - 1];
-            }
-            a++;
+        arr[a - 1] += k;
+        arr[b] -= k;
+    }
+    let max = 0;
+    let sum = 0;
+    for (const n of arr) {
+        sum += n;
+        if (sum > max) {
+            max = sum;
         }
     }
     return max;
