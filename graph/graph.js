@@ -34,4 +34,4 @@ class Graph {
     }
 }
 
-exports.Node = Graph;
+module.exports = Graph;
