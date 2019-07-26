@@ -6,9 +6,34 @@ const Graph = require('./graph');
  *                contains two integers that represent cities connected by an obstructed road
  */
 function citiesToGraph(cities) {
+    const vertices = [];
     for (const [a, b] of cities) {
-        const v = new Graph(a);
-        v.addChild(b);
+        if (!vertices[a]) {
+            vertices[a] = new Graph(a);
+        }
+        vertices[a].addChild(b);
+    }
+    return vertices;
+}
+
+
+function connectedVertices(vertices, start) {
+    let set = new Set();
+    set.add(start);
+    
+    let connected = [set];
+    let q = [];
+    q = q.concat(vertices[start].children);
+    while (q.length > 0) {
+        let v = q.shift();
+        set.add(v.name);
+        if (vertices[v.name]) {
+            q = q.concat(vertices[v.name].children);
+        } else if (vertices.lenght) {
+            set = new Set();
+            connected.push(set);
+            
+        }
     }
 }
 
@@ -35,7 +60,8 @@ function citiesToGraph(cities) {
 function roadsAndLibraries(n, c_lib, c_road, cities) {
     let total = 0;
     // if all of the vertices are connected the longest possible path is edges = vertices - 1
-    
+    const vertices = citiesToGraph(cities);
+    const connected = connectedVertices(vertices, cities[0][0]);
     const longestPath = n - 1;
     return total;
 }
