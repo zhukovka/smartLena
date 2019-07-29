@@ -61,7 +61,16 @@ describe('Linked List Construction', function () {
             let node1 = new Node(2);
             ll.insertBefore(ll.head, node1);
             chai.expect(ll.head).to.deep.equal(node1);
+            chai.expect(ll.head.next).to.deep.equal(node);
             chai.expect(ll.tail).to.deep.equal(node);
+        });
+
+        it('should insert node after tail', function () {
+            let node1 = new Node(2);
+            ll.insertAfter(ll.tail, node1);
+            chai.expect(ll.tail).to.deep.equal(node1);
+            chai.expect(ll.tail.prev).to.deep.equal(node);
+            chai.expect(ll.head).to.deep.equal(node);
         });
     });
     

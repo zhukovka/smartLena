@@ -1,5 +1,5 @@
 class Node {
-    constructor(value) {
+    constructor (value) {
         this.value = value;
         this.prev = null;
         this.next = null;
@@ -26,49 +26,108 @@ Sample output (after inserting a new 3 after 6):
 4 -> 1 -> 2 -> 5 -> 3 -> 6 -> 3
  */
 class DoublyLinkedList {
-    constructor() {
+    constructor () {
         this.head = null;
         this.tail = null;
     }
-    
-    setHead(node) {
+
+    setHead (node) {
         this.head = node;
-        if (!node.next) {
-            this.tail = node;
+        if (this.head) {
+            this.head.prev = null;
+        }
+        if (!this.tail && this.head) {
+            this.setTail(this.head);
         }
     }
-    
-    setTail(node) {
+
+    setTail (node) {
         this.tail = node;
-        if (!node.prev) {
-            this.head = node;
+        if (this.tail) {
+            this.tail.next = null;
+        }
+        if (!this.head && this.tail) {
+            this.setHead(this.tail);
         }
     }
-    
-    insertBefore(node, nodeToInsert) {
+
+    insertBefore (node, nodeToInsert) {
         nodeToInsert.next = node;
         if (node.prev) {
             nodeToInsert.prev = node.prev;
             node.prev.next = nodeToInsert;
-            node.prev = nodeToInsert;
         } else {
             this.setHead(nodeToInsert);
         }
+        node.prev = nodeToInsert;
     }
-    
-    insertAfter(node, nodeToInsert) {
+
+    insertAfter (node, nodeToInsert) {
+        nodeToInsert.prev = node;
+        if (node.next) {
+            nodeToInsert.next = node.next;
+            node.next.prev = nodeToInsert;
+        } else {
+            this.setTail(nodeToInsert);
+        }
+        node.next = nodeToInsert;
     }
-    
-    insertAtPosition(position, nodeToInsert) {
+
+    insertAtPosition (position, nodeToInsert) {
+        let node = this.head;
+        if (!node || position === 1) {
+            this.setHead(nodeToInsert);
+        }
+        let i = 1;
+        while (node) {
+            i++;
+            if (i === position) {
+                this.insertAfter(node, nodeToInsert);
+                return;
+            }
+            node = node.next;
+        }
     }
-    
-    removeNodesWithValue(value) {
+
+    removeNodesWithValue (value) {
+        let node = this.head;
+        while (node) {
+            const next = node.next;
+            if (node.value === value) {
+                this.remove(node);
+            }
+            node = next;
+        }
     }
-    
-    remove(node) {
+
+    remove (node) {
+        const prev = node.prev;
+        const next = node.next;
+        if (prev) {
+            prev.next = node.next
+        } else {
+            this.setHead(next);
+        }
+
+        if (next) {
+            next.prev = node.prev;
+        } else {
+            this.setTail(prev);
+        }
+
+        node.prev = null;
+        node.next = null;
     }
-    
-    containsNodeWithValue(value) {
+
+    containsNodeWithValue (value) {
+        let node = this.head;
+        while (node) {
+            if (node.value === value) {
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
     }
 }
 

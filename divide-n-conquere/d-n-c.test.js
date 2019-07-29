@@ -6,13 +6,15 @@ describe('Divide and conquer', function () {
 
     let numbers;
     beforeEach(function () {
-        numbers = [3, 5, -9, 8, 11];
+        numbers = [3, 5, 0, 0, 0, 0, 0, -9, 8, -1, 11, -5];
     });
 
     describe('findMaximumSubarray', function () {
         it('should find Maximum Subarray', function () {
-            const [low, high, maxSum] = findMaximumSubarray(numbers, 0, numbers.length - 1);
-            assert.deepStrictEqual(numbers.slice(low, high + 1), [8, 11])
+            const maxSum = findMaximumSubarray(numbers, 0, numbers.length - 1);
+            assert.deepStrictEqual(maxSum, 19);
+            // const [low, high, maxSum] = findMaximumSubarray(numbers, 0, numbers.length - 1);
+            // assert.deepStrictEqual(numbers.slice(low, high + 1), [8, 11])
         });
     });
 

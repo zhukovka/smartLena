@@ -2,7 +2,7 @@ function findMaxCrossingSubarray (array, low, mid, high) {
     let lSum = array[mid];
     let maxLeft = mid;
     let sum = 0;
-    for (let i = mid; i >= 0; i--) {
+    for (let i = mid; i >= low; i--) {
         sum += array[i];
         if (sum > lSum) {
             maxLeft = i;

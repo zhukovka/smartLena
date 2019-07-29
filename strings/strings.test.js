@@ -1,3 +1,4 @@
+const assert = require('assert');
 const chai = require("chai");
 const {isPalindrome, longestPalindromicSubstring} = require('./palindrome');
 const caesarCipherEncryptor = require('./caesar');
@@ -77,63 +78,85 @@ describe('Caesar Cipher Encryptor', function () {
     });
 });
 
+describe('one edit away', function () {
+    const oneEdit = require('./oneEdit');
+    it('should return true for pale and bale', function () {
+        const isOneEditAway = oneEdit('pale', 'bale');
+        assert.deepStrictEqual(isOneEditAway, true);
+    });
+
+    it('should return true for qwert1y and qwerty', function () {
+        const isOneEditAway = oneEdit('qwert1y', 'qwerty');
+        assert.deepStrictEqual(isOneEditAway, true);
+    });
+
+    it('should return false for pale and pled', function () {
+        const isOneEditAway = oneEdit('pale', 'pled');
+        assert.deepStrictEqual(isOneEditAway, false);
+    });
+    it('should return false for aaaaaa and aaaa', function () {
+        const isOneEditAway = oneEdit('aaaaaa', 'aaaa');
+        assert.deepStrictEqual(isOneEditAway, false);
+    });
+});
+
 describe('Longest Palindromic Substring', function () {
     it('it should return aba for abazy', function () {
         chai.expect(longestPalindromicSubstring("abazy")).to.deep.equal("aba");
     });
-    
+
     it('it should return xyzzyx for xyzzyxf', function () {
         chai.expect(longestPalindromicSubstring("xyzzyxf")).to.deep.equal("xyzzyx");
     });
-    
+
     it('it should return 5abbba5 for 5abbba5', function () {
         chai.expect(longestPalindromicSubstring("5abbba5")).to.deep.equal("5abbba5");
     });
-    
+
     it('Test Case #1', function () {
         chai.expect(longestPalindromicSubstring("a")).to.deep.equal("a");
     });
-    
+
     it('Test Case #2', function () {
         chai.expect(longestPalindromicSubstring("it's highnoon")).to.deep.equal("noon");
     });
-    
+
     it('Test Case #3', function () {
         chai.expect(longestPalindromicSubstring("noon high it is")).to.deep.equal("noon");
     });
-    
+
     it('Test Case #4', function () {
         chai.expect(longestPalindromicSubstring("abccbait's highnoon")).to.deep.equal("abccba");
     });
-    
+
     it('Test Case #5', function () {
         chai.expect(longestPalindromicSubstring("abaxyzzyxf")).to.deep.equal("xyzzyx");
     });
-    
+
     it('Test Case #6', function () {
         chai.expect(longestPalindromicSubstring("abcdefgfedcbazzzzzzzzzzzzzzzzzzzz")).to.deep.equal("zzzzzzzzzzzzzzzzzzzz");
     });
-    
+
     it('Test Case #7', function () {
         chai.expect(longestPalindromicSubstring("abcdefgfedcba")).to.deep.equal("abcdefgfedcba");
     });
-    
+
     it('Test Case #8', function () {
         chai.expect(longestPalindromicSubstring("abcdefghfedcbaa")).to.deep.equal("aa");
     });
-    
+
     it('Test Case #9', function () {
         chai.expect(longestPalindromicSubstring("abcdefggfedcba")).to.deep.equal("abcdefggfedcba");
     });
-    
+
     it('Test Case #10', function () {
         chai.expect(longestPalindromicSubstring("zzzzzzz2345abbbba5432zzbbababa")).to.deep.equal("zz2345abbbba5432zz");
     });
-    
+
     it('Test Case #11', function () {
         chai.expect(longestPalindromicSubstring("z234a5abbbba54a32z")).to.deep.equal("5abbbba5");
     });
-    
+
     it('Test Case #12', function () {
         chai.expect(longestPalindromicSubstring("z234a5abbba54a32z")).to.deep.equal("5abbba5");
     });
