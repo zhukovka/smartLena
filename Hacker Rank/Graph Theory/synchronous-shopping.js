@@ -4,7 +4,7 @@
  * [problem](https://www.hackerrank.com/challenges/synchronous-shopping/problem)
  *
  * @example
- * shop(5,5,[[1 1],[1, 2],[1, 3],[1, 4],[1, 5]],
+ * shop(5, 5, ['1 1', '1 2', '1 3', '1 4', '1 5'],
  * [[1, 2, 10],[1, 3, 10],[2, 4, 10],[3, 5, 10],[4, 5, 10]]);
  * //30
  *
@@ -19,7 +19,8 @@
  * @return {number} time - an integer that represents the minimum time required for the shopping
  */
 function shop(n, k, centers, roads) {
-
+    
+    return 0;
 }
 
 module.exports = shop;
