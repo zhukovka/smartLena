@@ -14,14 +14,14 @@ Sample input:
 Sample output: ["A", "B", "E", "F", "I", "J", "C", "D", "G", "K", "H"]
 */
 
-class Graph {
+class _graph {
     constructor (name) {
         this.name = name;
         this.children = [];
     }
 
     addChild (name) {
-        this.children.push(new Graph(name));
+        this.children.push(new _graph(name));
         return this;
     }
 
@@ -34,4 +34,4 @@ class Graph {
     }
 }
 
-exports.Node = Graph;
+exports.Node = _graph;

@@ -20,8 +20,9 @@ function depthFirstSearch (graph) {
     const dft = [];
     for (const i of graph.keys()) {
         const u = i + 1;
-        if (!colors[u]) {
-            visit(graph, u, colors, dft);
+        if (graph[i] && !colors[u]) {
+            const d = dft.push([]);
+            visit(graph, u, colors, dft[d - 1]);
         }
     }
     return dft;
@@ -32,7 +33,10 @@ function visit (graph, u, colors, dft) {
     console.log(`(${u}).d = ${time}`);
     colors[u] = 'g';
     dft.push(u);
-    for (const v of graph[u - 1]) {
+
+    const E = graph[u - 1] || [];
+
+    for (const v of E) {
         if (!colors[v]) {
             visit(graph, v, colors, dft);
         }

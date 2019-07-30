@@ -1,4 +1,4 @@
-const graph = require("./graph");
+const graph = require("./_graph");
 const chai = require("chai");
 
 const test1 = new graph.Node("A");

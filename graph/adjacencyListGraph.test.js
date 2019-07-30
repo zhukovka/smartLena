@@ -81,6 +81,12 @@ describe('Adjacency list reprecentation of a graph', function () {
             const G = digraph(edges);
             assert.deepStrictEqual([[2, 3], [3], [4], [2], [4, 6], [6]], G);
         });
+
+        it('should build a digraph [[2, 3], [3], [4], [2], [4, 6], [6]]', function () {
+            const edges = [[1, 2], [1, 3], [2, 3], [3, 4], [4, 2], [5, 4], [5, 6], [6, 6]];
+            const G = digraph(edges);
+            assert.deepStrictEqual([[2, 3], [3], [4], [2], [4, 6], [6]], G);
+        });
     });
     describe('Depth First Search', function () {
         const depthFirstSearch = require('./depthFirstSearch');
@@ -88,7 +94,35 @@ describe('Adjacency list reprecentation of a graph', function () {
             const edges = [[1, 2], [1, 3], [2, 3], [3, 4], [4, 2], [5, 4], [5, 6], [6, 6]];
             const G = digraph(edges);
             const dft = depthFirstSearch(G);
-            assert.deepStrictEqual(dft, [1, 2, 3, 4, 5, 6])
+            assert.deepStrictEqual(dft, [[1, 2, 3, 4], [5, 6]])
         });
+
+        it('should construct depth first forest', function () {
+            const edges = [[1, 2], [1, 5], [3, 4]];
+            const G = digraph(edges);
+            const dft = depthFirstSearch(G);
+            assert.deepStrictEqual(dft, [[1, 2, 5], [3, 4]])
+        });
+    });
+});
+
+describe('Journey to the Moon', function () {
+    const journeyToMoon = require('./journeyToMoon');
+    it('should return 6 ways of choosing a pair', function () {
+        const c = journeyToMoon(5, [[0, 1],
+            [2, 3],
+            [0, 4]]);
+        assert.deepStrictEqual(c, 6);
+    });
+
+    it('should return 5 ways of choosing a pair', function () {
+        /*
+        * Persons numbered [0, 2] belong to the same country,
+        * but persons 1 and 3 don't share countries with anyone else.
+        * The UN has 5 ways of choosing a pair:
+        * [0,1],[0,3],[1,2],[1,3],[2,3]
+         */
+        const c = journeyToMoon(4, [[0, 2]]);
+        assert.deepStrictEqual(c, 5);
     });
 });
