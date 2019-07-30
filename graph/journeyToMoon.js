@@ -1,4 +1,4 @@
-function depthFirstSearch (graph) {
+function depthFirstSearch(graph) {
     //white = undefined, gray = 'g', black = 'b'
     const colors = [];
     const dft = [];
@@ -11,12 +11,12 @@ function depthFirstSearch (graph) {
     return dft;
 }
 
-function visit (graph, u, colors, dft) {
+function visit(graph, u, colors, dft) {
     colors[u] = 'g';
     dft.push(u);
-
+    
     const E = graph[u] || [];
-
+    
     for (const v of E) {
         if (!colors[v]) {
             visit(graph, v, colors, dft);
@@ -25,23 +25,34 @@ function visit (graph, u, colors, dft) {
     colors[u] = 'b';
 }
 
-/**
- * adjacency-list representation of a **directed** graph G (V, E) consists of an array Adj of |V| lists,
- * one for each vertex in V.
- * For each u ∈ V , the adjacency list Adj[u] contains all the vertices v such that there is an edge (u, v) ∈ E.
- * That is, Adj[u] consists of all the vertices adjacent to u in G
- * @param edges - 2D array of edges (u, v) ∈ E
- */
-function digraph (edges) {
-    const Adj = [];
+function graph(edges, n) {
+    const Adj = (new Array(n)).fill(null);
     for (const [u, v] of edges) {
-        const i = u;
-        if (!Adj[i]) {
-            Adj[i] = [];
+        if (!Adj[u]) {
+            Adj[u] = [];
         }
-        Adj[i].push(v);
+        if (!Adj[v]) {
+            Adj[v] = [];
+        }
+        Adj[u].push(v);
+        Adj[v].push(u);
     }
-    return Adj;
+    return Adj.map((e, i) => {
+        if (!e) {
+            return [i]
+        }
+        return e;
+    });
+}
+
+function sumOfProducts(array) {
+    let sum = 0;
+    let res = 0;
+    for (let i = 0; i < array.length - 1; i++) {
+        sum += array[i];
+        res += sum * array[i + 1];
+    }
+    return res;
 }
 
 /**
@@ -57,15 +68,11 @@ function digraph (edges) {
  * @param {number[][]} astronauts - a 2D array where each element `astronauts[i]` is a 2-element integer array that represents the ID's of two astronauts from the same country
  * @return {number} c - An integer that denotes the number of ways to choose a pair of astronauts from different countries.
  */
-function journeyToMoon (n, astronauts) {
-    const G = digraph(astronauts);
+function journeyToMoon(n, astronauts) {
+    const G = graph(astronauts, n);
     const dft = depthFirstSearch(G);
-    const total = n * (n - 1) / 2;
-    let c = dft.reduce((acc, tree) => {
-        const m = tree.length;
-        return acc + (m * (m - 1) / 2);
-    }, 0);
-    return total - c;
+    const sizes = dft.map(t => t.length);
+    return sumOfProducts(sizes);
 }
 
 module.exports = journeyToMoon;
