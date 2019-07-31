@@ -1,6 +1,6 @@
 const assert = require('assert');
 const adjacencyListGraph = require('./adjacencyListGraph');
-const digraph = require('./adjacencyListDigraph');
+const digraph = require('../../Intro to Algorithms/Graphs/adjacencyListDigraph');
 
 describe('Adjacency list reprecentation of a graph', function () {
     it('should build a graph from an array of edges (1,2), (2,3)', function () {
@@ -19,7 +19,7 @@ describe('Adjacency list reprecentation of a graph', function () {
     });
 
     describe('breadth-first search', function () {
-        const breadthFirstSearch = require('./breadthFirstSearch');
+        const breadthFirstSearch = require('../../Intro to Algorithms/Graphs/breadthFirstSearch');
         it('should return levels of a graph (1,2), (2,3)', function () {
             const alGraph = adjacencyListGraph([[1, 2], [2, 3]]);
             const lvl = [0, 1, 2];
@@ -89,7 +89,7 @@ describe('Adjacency list reprecentation of a graph', function () {
         });
     });
     describe('Depth First Search', function () {
-        const depthFirstSearch = require('./depthFirstSearch');
+        const depthFirstSearch = require('../../Intro to Algorithms/Graphs/depthFirstSearch');
         it('should depthFirstSearch', function () {
             const edges = [[1, 2], [1, 3], [2, 3], [3, 4], [4, 2], [5, 4], [5, 6], [6, 6]];
             const G = digraph(edges);
