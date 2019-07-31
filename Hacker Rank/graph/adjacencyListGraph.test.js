@@ -17,7 +17,7 @@ describe('Adjacency list reprecentation of a graph', function () {
         const expected = [new Set([2, 5]), new Set([1, 5, 3, 4]), new Set([2, 4]), new Set([2, 5, 3]), new Set([4, 1, 2])];
         assert.deepStrictEqual(alGraph, expected);
     });
-
+    
     describe('breadth-first search', function () {
         const breadthFirstSearch = require('../../Intro to Algorithms/Graphs/breadthFirstSearch');
         it('should return levels of a graph (1,2), (2,3)', function () {
@@ -36,7 +36,7 @@ describe('Adjacency list reprecentation of a graph', function () {
             assert.deepStrictEqual(breadthFirstSearch(alGraph, 1), lvl);
         });
     })
-
+    
     describe('Breadth First Search: Shortest Reach (Hacker Rank)', function () {
         const bfs = require('./bfs');
         it('should return 6 6 -1', function () {
@@ -61,7 +61,7 @@ describe('Adjacency list reprecentation of a graph', function () {
             const d = bfs(5, 3, edges, 1);
             assert.deepStrictEqual(d, [6, 6, 12, -1]);
         });
-
+        
         it('should return all -1', function () {
             //30 1
             // 9 20
@@ -74,14 +74,14 @@ describe('Adjacency list reprecentation of a graph', function () {
             assert.deepStrictEqual(d, (new Array(n - 1)).fill(-1));
         });
     });
-
+    
     describe('adjacency-list representation of a **directed** graph G (V, E)', function () {
         it('should build a digraph [[2, 3], [3], [4], [2], [4, 6], [6]]', function () {
             const edges = [[1, 2], [1, 3], [2, 3], [3, 4], [4, 2], [5, 4], [5, 6], [6, 6]];
             const G = digraph(edges);
             assert.deepStrictEqual([[2, 3], [3], [4], [2], [4, 6], [6]], G);
         });
-
+        
         it('should build a digraph [[2, 3], [3], [4], [2], [4, 6], [6]]', function () {
             const edges = [[1, 2], [1, 3], [2, 3], [3, 4], [4, 2], [5, 4], [5, 6], [6, 6]];
             const G = digraph(edges);
@@ -96,7 +96,7 @@ describe('Adjacency list reprecentation of a graph', function () {
             const dft = depthFirstSearch(G);
             assert.deepStrictEqual(dft, [[1, 2, 3, 4], [5, 6]])
         });
-
+        
         it('should construct depth first forest', function () {
             const edges = [[1, 2], [1, 5], [3, 4]];
             const G = digraph(edges);
@@ -114,7 +114,19 @@ describe('Journey to the Moon', function () {
             [0, 4]]);
         assert.deepStrictEqual(c, 6);
     });
-
+    
+    it('should return 23 ways of choosing a pair', function () {
+        const edges = [[0, 2],
+            [1, 8],
+            [1, 4],
+            [2, 8],
+            [2, 6],
+            [3, 5],
+            [6, 9]];
+        const c = journeyToMoon(10, edges);
+        assert.deepStrictEqual(c, 23);
+    });
+    
     it('should return 5 ways of choosing a pair', function () {
         /*
         * Persons numbered [0, 2] belong to the same country,
