@@ -56,3 +56,62 @@ describe('Bigger is Greater', function () {
         assert.deepStrictEqual(bigger, 'hcdk');
     });
 });
+
+describe('Next lexicographical permutation algorithm', function () {
+
+    describe('Longest suffix', function () {
+            const {longestNonIncreasingSuffix} = require('./nextPermutation');
+            it('should find the longest suffix that is non-increasing [0, 1, 2, 5, 3, 3, 0] is [5, 3, 3, 0]', function () {
+                const suffix = longestNonIncreasingSuffix([0, 1, 2, 5, 3, 3, 0]);
+                assert.deepStrictEqual(suffix, [5, 3, 3, 0]);
+            });
+
+            it('should find the longest suffix that is non-increasing dkhc is khc', function () {
+                const suffix = longestNonIncreasingSuffix('dkhc');
+                assert.deepStrictEqual(suffix, 'khc');
+            });
+
+            it('should find the longest suffix abdc -> dc', function () {
+                const suffix = longestNonIncreasingSuffix('abdc');
+                assert.deepStrictEqual(suffix, 'dc');
+            });
+        }
+    );
+
+    describe('Next permutation', function () {
+        const {nextPermutation} = require('./nextPermutation');
+        it('should return hegf', function () {
+            const bigger = nextPermutation('hefg');
+            assert.deepStrictEqual(bigger, 'hegf');
+        });
+
+        it('should return dhkc', function () {
+            const bigger = nextPermutation('dhck');
+            assert.deepStrictEqual(bigger, 'dhkc');
+        });
+
+        it('should return 4873->7348', function () {
+            const bigger = nextPermutation('4873');
+            assert.deepStrictEqual(bigger, '7348');
+        });
+        it('should return hcdk', function () {
+            const bigger = nextPermutation('dkhc');
+            assert.deepStrictEqual(bigger, 'hcdk');
+        });
+
+        it('should return fedcbabdc', function () {
+            const bigger = nextPermutation('fedcbabcd');
+            assert.deepStrictEqual(bigger, 'fedcbabdc');
+        });
+
+        it('should return abdc -> acbd', function () {
+            const bigger = nextPermutation('abdc');
+            assert.deepStrictEqual(bigger, 'acbd');
+        });
+
+        it('should return zedawdvyyfumwpupuinbdbfndyehircmylbaowuptgmw -> zedawdvyyfumwpupuinbdbfndyehircmylbaowuptgwm', function () {
+            const bigger = nextPermutation('zedawdvyyfumwpupuinbdbfndyehircmylbaowuptgmw');
+            assert.deepStrictEqual(bigger, 'zedawdvyyfumwpupuinbdbfndyehircmylbaowuptgwm');
+        });
+    });
+});
