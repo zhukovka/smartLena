@@ -28,15 +28,24 @@ function substrCount(n, s) {
         if (cur === prev) {
             //if current === prev
             //a===s
+            console.log(`${res} + ${consec} = ${res + consec}`)
             res += consec;
             consec += 1;
         } else {
             //go both ways
             const mid = i + 1; //2
-            const right = s.substring(mid, mid + consec);
-            const left = s.substring(i - consec, i);
-            if (right === left) {
-                res += consec
+            //aaa[b]aa
+            const leftSubstr = s.substring(i - consec, i);//aaaaa |b
+            const char = leftSubstr[0];
+            const rightSubstr = s.substring(mid, mid + consec);//b| aab
+            const lastRight = rightSubstr.lastIndexOf(char);//1
+            if (lastRight > -1) {
+                const end = lastRight + 1;
+                const right = s.substring(mid, mid + end);
+                const left = s.substring(i - end, i);
+                if (right === left) {
+                    res += right.length
+                }
             }
             consec = 1;
         }
