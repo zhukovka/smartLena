@@ -84,9 +84,4 @@ describe('Frequency Queries', () => {
         ];
         assert.deepStrictEqual(freqQuery(input), [0, 0])
     });
-    
-    it('should return for test5', () => {
-        const test5 = require('./test5');
-        assert.deepStrictEqual(freqQuery(test5.input), test5.res)
-    });
 });

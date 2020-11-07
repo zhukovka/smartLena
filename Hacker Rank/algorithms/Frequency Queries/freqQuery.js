@@ -23,9 +23,9 @@ function freqQuery(queries) {
             freq[acc[el]] = (freq[acc[el]] || 0) + 1
         }
         if (op === 2 && acc[el] > 0) {
-            freq[acc[el]] = (freq[acc[el]] || 0) + 1
-            acc[el] -= 1;
             freq[acc[el]] = (freq[acc[el]] - 1) || 0
+            acc[el] -= 1;
+            freq[acc[el]] = (freq[acc[el]] || 0) + 1
         }
         if (op === 3) {
             res.push(freq[el] > 0 ? 1 : 0)
