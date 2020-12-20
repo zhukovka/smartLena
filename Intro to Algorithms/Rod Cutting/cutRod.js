@@ -7,13 +7,15 @@
  * @return {number} - maximum revenue possible for a rod of length `n`
  */
 
-function cutRod (p, n) {
+function cutRod(p, n) {
     if (n === 0) {
         return 0;
     }
     let q = 0;
     for (let i = 1; i <= n; i++) {
-        q = Math.max(q, p[i] + cutRod(p, n - i))
+        const rod = cutRod(p, n - i);
+        console.log(n, i, `Math.max(${q}, ${p[i]} + ${rod})`)
+        q = Math.max(q, p[i] + rod)
     }
     return q;
 }
