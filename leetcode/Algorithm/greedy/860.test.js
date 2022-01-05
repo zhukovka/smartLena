@@ -7,34 +7,39 @@
  */
 const lemonadeChange = function (bills) {
     let cost = 5;
-    let cashier = [];
+    let cashier = {};
     for (let i = 0; i < bills.length; i++) {
-        let change = bills[i] - cost;
+        let bill = bills[i];
+        let change = bill - cost;
         if (change > 0) {
             if (!getChange(cashier, change)) {
                 return false;
             }
         }
-        cashier.push(bills[i]);
+        if (!cashier[bill]) {
+            cashier[bill] = 0;
+        }
+        cashier[bill] += 1;
     }
     return true;
 };
 
 /**
  *
- * @param cashier{number[]}
+ * @param cashier{object}
  * @param change{number}
  * @returns {boolean}
  */
 function getChange(cashier, change) {
-    cashier.sort((a, b) => a - b);
+    const keys = Object.keys(cashier).filter(k => cashier[k] > 0).sort((a, b) => a - b);
 
-    let i = cashier.length - 1;
-    while (i >= 0 && change >= cashier[0]) {
-        let bill = cashier[i];
-        if (change - bill >= 0) {
-            change -= bill;
-            cashier.splice(i, 1);
+    let i = keys.length - 1;
+    while (i >= 0 && change >= keys[0]) {
+        let bill = keys[i];
+        let n = change / bill | 0;
+        if (cashier[bill] >= n && change - bill * n >= 0) {
+            change -= bill * n;
+            cashier[bill] -= n;
         }
         i--;
     }
@@ -54,8 +59,8 @@ describe('860. Lemonade Change', function () {
     });
 
     it('should not get change', function () {
-        assert.deepEqual(getChange([10, 10], 15), false)
-        assert.deepEqual(getChange([10, 5], 15), true)
+        assert.deepEqual(getChange({10: 2}, 15), false)
+        assert.deepEqual(getChange({10: 1, 5: 1}, 15), true)
     });
     it('Example 2 ', function () {
         bills = [5, 5, 10, 10, 20];
@@ -69,5 +74,13 @@ describe('860. Lemonade Change', function () {
 
         actual = lemonadeChange(bills);
         assert.deepEqual(actual, true)
+    });
+
+
+    it('Example 4 ', function () {
+        bills = [5, 5, 5, 10, 5, 5, 10, 20, 20, 20];
+
+        actual = lemonadeChange(bills);
+        assert.deepEqual(actual, false)
     });
 });
