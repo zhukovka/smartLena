@@ -15,16 +15,11 @@
 const maximumUnits = function (boxTypes, truckSize) {
     boxTypes.sort((a, b) => a[1] - b[1]);
     let units = 0;
-    while (truckSize > 0 || boxTypes.length) {
+    while (truckSize > 0 && boxTypes.length) {
         let box = boxTypes.pop();
         let size = Math.min(truckSize, box[0]);
-        if (truckSize >= box[0]) {
-            units += box[0] * box[1];
-            truckSize -= box[0];
-        } else {
-            units += truckSize * box[1];
-            truckSize = 0;
-        }
+        units += size * box[1];
+        truckSize -= size;
     }
     return units;
 };
@@ -44,6 +39,14 @@ describe('1710. Maximum Units on a Truck', function () {
     it('Example 2', function () {
         boxTypes = [[5, 10], [2, 5], [4, 7], [3, 9]];
         truckSize = 10;
+        actual = maximumUnits(boxTypes, truckSize);
+        assert.deepEqual(actual, 91);
+    });
+
+    it('Example 3', function () {
+        boxTypes = [[1,3],[5,5],[2,5],[4,2],[4,1],[3,1],[2,2],[1,3],[2,5],[3,2]];
+        
+        truckSize = 35;
         actual = maximumUnits(boxTypes, truckSize);
         assert.deepEqual(actual, 91);
     });

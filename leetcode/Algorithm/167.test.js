@@ -13,14 +13,16 @@
  * @return {number[]}
  */
 const twoSum = function (numbers, target) {
-    const _acc = {};
-    for (let i = 0; i < numbers.length; i++) {
-        const number = numbers[i];
-        const x = target - number;
-        if (_acc[x] >= 0) {
-            return [_acc[x], i + 1];
-        } else {
-            _acc[number] = i + 1;
+    let i = 0;
+    let j = numbers.length - 1;
+    while (i < j) {
+        let x = target - numbers[i];
+        if (numbers[j] > x) {
+            j--;
+        } else if (numbers[j] < x) {
+            i++;
+        } else if (numbers[j] === x) {
+            return [i + 1, j + 1];
         }
     }
 };

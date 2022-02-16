@@ -5,6 +5,7 @@
  * You must write an algorithm with O(log n) runtime complexity.
  * @param nums{number[]}
  * @param target{number}
+ * @return {number}
  */
 function searchInsert(nums, target) {
 

@@ -3,22 +3,20 @@
  * @return {number}
  */
 const lengthOfLongestSubstring = function (s) {
-    let longest = '';
-    let _chars = {};
-    let temp = '';
+    let longest = 0;
+    let curr = '';
+
     for (let i = 0; i < s.length; i++) {
-        let char = s[i];
-        if (_chars[char] >= 0) {
-            if (longest.length < temp.length) {
-                longest = temp;
-            }
-            temp = temp.substring(_chars[char] + 1);
-            _chars[char] = -1;
+        const char = s[i];
+        let indexOf = curr.indexOf(char);
+        if (indexOf > -1) {
+            longest = Math.max(curr.length, longest);
+            curr = curr.substring(indexOf + 1) + char;
+        } else {
+            curr += char;
         }
-        _chars[char] = i;
-        temp += char;
     }
-    return Math.max(longest.length, temp.length);
+    return Math.max(longest, curr.length);
 };
 
 const assert = require('assert');
@@ -44,12 +42,12 @@ describe('3. Longest Substring Without Repeating Characters', function () {
         const actual = lengthOfLongestSubstring(s);
         assert.deepStrictEqual(actual, 0);
     });
-    it('Example 5', function () {
+    it('Example 5 abcd', function () {
         let s = "abcd";
         const actual = lengthOfLongestSubstring(s);
         assert.deepStrictEqual(actual, 4);
     });
-    it('Example 5', function () {
+    it('Example 5 dvdf', function () {
         let s = "dvdf";
         const actual = lengthOfLongestSubstring(s);
         assert.deepStrictEqual(actual, 3);

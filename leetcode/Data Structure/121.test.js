@@ -12,8 +12,30 @@
  * @return {number}
  */
 const maxProfit = function (prices) {
-
+    let min = prices[0];
+    let maxProfit = 0;
+    for (let i = 1; i < prices.length; i++) {
+        if (prices[i] < min) {
+            min = prices[i];
+        } else if (prices[i] - min > maxProfit) {
+            maxProfit = prices[i] - min;
+        }
+    }
+    return maxProfit;
 };
-describe('121. Best Time to Buy and Sell Stock', function () {
+const assert = require('assert');
 
+describe('121. Best Time to Buy and Sell Stock', function () {
+    let prices, actual;
+    it('Example 1', function () {
+        prices = [7, 1, 5, 3, 6, 4]
+        actual = maxProfit(prices);
+        assert.deepStrictEqual(actual, 5);
+    });
+
+    it('Example 2', function () {
+        prices = [7, 6, 4, 3, 1]
+        actual = maxProfit(prices);
+        assert.deepStrictEqual(actual, 0);
+    });
 });

@@ -9,17 +9,27 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 function rotate(nums, k) {
-
+    const i = (nums.length - k) % nums.length;
+    const tail = nums.splice(i, nums.length);
+    nums.unshift(...tail);
 }
 
 const assert = require('assert');
 
 describe('189. Rotate Array', function () {
     let nums, k;
+
     it('Example 1', function () {
         nums = [1, 2, 3, 4, 5, 6, 7];
         k = 3;
         const actual = rotate(nums, k);
         assert.deepStrictEqual(nums, [5, 6, 7, 1, 2, 3, 4]);
+    });
+
+    it('Example 2', function () {
+        nums = [-1, -100, 3, 99];
+        k = 2;
+        const actual = rotate(nums, k);
+        assert.deepStrictEqual(nums, [3, 99, -1, -100]);
     });
 });

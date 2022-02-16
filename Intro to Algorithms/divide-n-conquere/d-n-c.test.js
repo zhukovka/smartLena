@@ -16,6 +16,14 @@ describe('Divide and conquer', function () {
             // const [low, high, maxSum] = findMaximumSubarray(numbers, 0, numbers.length - 1);
             // assert.deepStrictEqual(numbers.slice(low, high + 1), [8, 11])
         });
+
+        it('should find Maximum Subarray 2', function () {
+            let array = [1, -4, 3, -4];
+            const maxSum = findMaximumSubarray(array, 0, array.length - 1);
+            assert.deepStrictEqual(maxSum, 19);
+            // const [low, high, maxSum] = findMaximumSubarray(numbers, 0, numbers.length - 1);
+            // assert.deepStrictEqual(numbers.slice(low, high + 1), [8, 11])
+        });
     });
 
     describe('merge sort', function () {

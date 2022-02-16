@@ -11,11 +11,23 @@
  * @return {number[]}
  */
 function twoSum(nums, target) {
+    const table = {};
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i];
+        let x = table[num];
+        if (x >= 0) {
+            return [x, i];
+        } else {
+            x = target - num;
+            table[x] = i;
+        }
+    }
+    return [];
 }
 
 const assert = require('assert');
 
-describe('189. Rotate Array', function () {
+describe('1. Two Sum', function () {
     let nums, target;
     it('Example 1', function () {
         nums = [2, 7, 11, 15];
